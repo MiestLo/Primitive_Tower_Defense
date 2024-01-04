@@ -6,22 +6,30 @@ public class Shooting_Tower_Behaviour : MonoBehaviour
 {
     public GameObject Projectile;
 
+    private bool readyforproj = true;
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("LaunchProjectile", 2.0f);
+        //Invoke("LaunchProjectile", 2.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (readyforproj)
+        {
+            readyforproj = false;
+            StartCoroutine(LaunchProjectile());
+        }
 
     }
 
-    void LaunchProjectile()
+    IEnumerator LaunchProjectile()
     {
         Rigidbody instance = Instantiate(Projectile.GetComponent<Rigidbody>());
 
-        instance.velocity = Random.insideUnitSphere * 5.0f;
+        instance.velocity = Vector3.forward * 5.0f;
+        yield return new WaitForSeconds(1f);
+        readyforproj = true;
     }
 }
