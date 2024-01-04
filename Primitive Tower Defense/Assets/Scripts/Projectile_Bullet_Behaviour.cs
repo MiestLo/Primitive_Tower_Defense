@@ -5,6 +5,10 @@ using UnityEngine;
 public class Projectile_Bullet_Behaviour : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    private bool destroyme = false;
+    private bool im_alive = true;
+
     void Start()
     {
 
@@ -13,12 +17,25 @@ public class Projectile_Bullet_Behaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (im_alive)
+        {
+            im_alive = false; // will be destroy in a second
+            StartCoroutine(DestroyMySelf());
+        }
 
+        if (destroyme)
+            Destroy(this.gameObject);
     }
 
     //Do something when the projectile touch an ennemie
     void OnCollisionEnter(Collision collision)
     {
         // To do 
+    }
+
+    IEnumerator DestroyMySelf()
+    {
+        yield return new WaitForSeconds(3f);
+        destroyme = true;
     }
 }
