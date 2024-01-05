@@ -27,6 +27,9 @@ public class Shooting_Tower_Behaviour : MonoBehaviour
     IEnumerator LaunchProjectile()
     {
         Rigidbody instance = Instantiate(Projectile.GetComponent<Rigidbody>());
+        //Not sure about that
+
+        Projectile.transform.position = this.gameObject.transform.position;
 
         instance.velocity = Vector3.forward * 5.0f;
         yield return new WaitForSeconds(1f);
