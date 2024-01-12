@@ -11,7 +11,7 @@ public class Projectile_Bullet_Behaviour : MonoBehaviour
 
     void Start()
     {
-
+        this.gameObject.tag = "Bullet";
     }
 
     // Update is called once per frame
@@ -30,7 +30,13 @@ public class Projectile_Bullet_Behaviour : MonoBehaviour
     //Do something when the projectile touch an ennemie
     void OnCollisionEnter(Collision collision)
     {
-        // To do 
+        if (collision.gameObject.tag == "Foe")
+        {
+            //Destroy the foe and destroy the bullet
+            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
+        }
+            
     }
 
     IEnumerator DestroyMySelf()
